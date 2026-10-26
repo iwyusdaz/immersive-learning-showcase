@@ -1,0 +1,53 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@f548e57e544e1ff5a4c46bf1e1b8685f8e4a348a # v6
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v6
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Validate apps.json schema
+        run: node -e "
+          const fs = require('fs');
+          const apps = JSON.parse(fs.readFileSync('apps.json','utf8'));
+          for (const a of apps.apps) {
+            if (!/^[a-z0-9-]+$/.test(a.slug)) throw new Error('bad slug ' + a.slug);
+            if (a.status === 'live' && (!a.version || !/^[a-f0-9]{64}$/.test(a.sha256||''))) throw new Error(a.slug + ' live entry needs version + sha256');
+          }
+          console.log('apps.json OK (' + apps.apps.length + ' apps)');
+        "
+      - name: Assemble (downloads + checksum verification)
+        run: node scripts/assemble.mjs
+      - name: Build site
+        run: node scripts/build-site.mjs
+      - name: Check dist (sizes, absolute paths, required files)
+        run: node scripts/check-dist.mjs
+      - name: Install Playwright
+        run: npx playwright install chromium --with-deps
+      - name: Landing + projects tests (axe, keyboard, 320px)
+        run: npx playwright test tests/landing.spec.js tests/projects.spec.js
+      - name: Lighthouse CI (landing page >= 95 in all categories)
+        run: |
+          npm i -g @lhci/cli@0.15.x
+          node scripts/serve-dist.mjs &
+          sleep 2
+          lhci autorun --collect.url=http://127.0.0.1:4173/ --collect.numberOfRuns=1 \
+            --assert.assertions.categories:performance=0.95 \
+            --assert.assertions.categories:accessibility=0.95 \
+            --assert.assertions.categories:best-practices=0.95 \
+            --assert.assertions.categories:seo=0.95
+      - name: Gitleaks secret scan
+        uses: gitleaks/gitleaks-action@ff98106e4c7b2bc287b24eaf42907196329070c7 # v2
+        env:
+          GITHUB_TOKEN: ${{ github.token }}

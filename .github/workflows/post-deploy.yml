@@ -1,0 +1,38 @@
+name: Post-deploy checks
+on:
+  deployment_status:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  live-checks:
+    if: github.event.deployment_status.state == 'success' && github.event.deployment_status.environment == 'production'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@f548e57e544e1ff5a4c46bf1e1b8685f8e4a348a # v6
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v6
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Install Playwright
+        run: npx playwright install chromium --with-deps
+      - name: Live header checks + smoke tests against production
+        run: |
+          BASE_URL="${{ github.event.deployment_status.target_url }}" npx playwright test tests/live-headers.spec.js
+      - name: Smoke test landing and every live project
+        run: |
+          BASE_URL="${{ github.event.deployment_status.target_url }}" npx playwright test tests/landing.spec.js tests/projects.spec.js
+      - name: Lighthouse on the live landing page
+        run: |
+          npm i -g @lhci/cli@0.15.x
+          lhci autorun --collect.url="${{ github.event.deployment_status.target_url }}/" --collect.numberOfRuns=1 --upload.outputDir=tmp/lhci
+      - name: Open an issue on failure with a rollback recommendation
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create --title "Post-deploy checks failed — consider rollback" \
+            --body "Automated post-deploy checks failed for deployment ${{ github.event.deployment.id }}. See the workflow run logs. Recommendation: roll back to the previous production deployment (Vercel instant rollback) and investigate." || true

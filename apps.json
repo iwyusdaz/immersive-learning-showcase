@@ -1,0 +1,11 @@
+{
+  "apps": [
+    { "slug": "lunar-field-expedition", "repo": "iwyusdaz/lunar-field-expedition", "status": "coming-soon" },
+    { "slug": "object-detective", "repo": "iwyusdaz/object-detective", "status": "coming-soon" },
+    { "slug": "field-ecologist", "repo": "iwyusdaz/field-ecologist", "status": "coming-soon" },
+    { "slug": "hazard-hunt", "repo": "iwyusdaz/hazard-hunt", "status": "coming-soon" },
+    { "slug": "arrival-english", "repo": "iwyusdaz/arrival-english", "status": "coming-soon" },
+    { "slug": "glacier-time-machine", "repo": "iwyusdaz/glacier-time-machine", "status": "coming-soon" },
+    { "slug": "first-session-tutor-sim", "repo": "iwyusdaz/first-session-tutor-sim", "status": "coming-soon" }
+  ]
+}

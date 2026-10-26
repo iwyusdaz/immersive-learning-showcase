@@ -1,0 +1,26 @@
+{
+  "name": "immersive-learning-showcase",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "One Vercel project assembling seven three.js learning projects into a single showcase with pinned, checksum-verified release builds",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node scripts/assemble.mjs && node scripts/build-site.mjs && node scripts/check-dist.mjs",
+    "assemble": "node scripts/assemble.mjs",
+    "preview": "node scripts/serve-dist.mjs",
+    "test": "playwright test tests/landing.spec.js tests/projects.spec.js",
+    "test:headers": "playwright test tests/live-headers.spec.js",
+    "check:apps": "node scripts/update-apps.mjs --check"
+  },
+  "dependencies": {
+    "marked": "15.0.7",
+    "tar": "7.5.22"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.64.1"
+  }
+}

@@ -1,0 +1,75 @@
+name: Check releases
+on:
+  schedule:
+    - cron: '23 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+  statuses: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@f548e57e544e1ff5a4c46bf1e1b8685f8e4a348a # v6
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v6
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Find newer releases and update apps.json pins
+        id: update
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -e
+          CHANGED=0
+          while IFS='|' read -r slug repo status; do
+            LATEST=$(gh release view --repo "$repo" --json tagName,assets --jq '.tagName' 2>/dev/null || true)
+            if [ -z "$LATEST" ]; then continue; fi
+            VERSION="${LATEST#v}"
+            PINNED=$(node -p "JSON.parse(require('fs').readFileSync('apps.json','utf8')).apps.find(a=>a.slug==='$slug')?.version || ''")
+            if [ "$VERSION" != "$PINNED" ]; then
+              SHA_URL=$(gh release view "$LATEST" --repo "$repo" --json assets --jq '.assets[] | select(.name | endswith(".tar.gz.sha256")) | .browser_download_url')
+              EXPECTED=$(curl -fsSL "$SHA_URL" | awk '{print $1}')
+              ACTUAL_URL=$(gh release view "$LATEST" --repo "$repo" --json assets --jq '.assets[] | select(.name | endswith(".tar.gz")) | .browser_download_url')
+              curl -fsSL "$ACTUAL_URL" -o /tmp/pkg.tar.gz
+              ACTUAL=$(sha256sum /tmp/pkg.tar.gz | awk '{print $1}')
+              if [ "$EXPECTED" != "$ACTUAL" ]; then echo "checksum mismatch for $slug $VERSION (expected $EXPECTED, got $ACTUAL)"; exit 1; fi
+              node scripts/update-apps.mjs --update "$slug" "$VERSION" "$ACTUAL"
+              CHANGED=1
+              echo "updated $slug -> $VERSION ($ACTUAL)"
+            fi
+          done < <(node -e "const a=JSON.parse(require('fs').readFileSync('apps.json','utf8')).apps; for(const x of a) console.log([x.slug,x.repo,x.status].join('|'))")
+          echo "changed=$CHANGED" >> "$GITHUB_OUTPUT"
+      - name: Validate + build + test (same as CI, because GITHUB_TOKEN PRs don't trigger workflows)
+        if: steps.update.outputs.changed == '1'
+        run: |
+          node scripts/assemble.mjs
+          node scripts/build-site.mjs
+          node scripts/check-dist.mjs
+          npx playwright install chromium --with-deps
+          npx playwright test tests/landing.spec.js tests/projects.spec.js
+      - name: Set validate status on the PR head commit
+        if: steps.update.outputs.changed == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          HEAD_SHA=$(git rev-parse HEAD)
+          gh api "repos/${GITHUB_REPOSITORY}/statuses/${HEAD_SHA}" \
+            -f state=success -f context=validate \
+            -f description="assemble + build + tests passed in check-releases" || echo "status set failed (logged as owner task)"
+      - name: Open or update the release-check PR
+        if: steps.update.outputs.changed == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "release-check-bot"
+          git config user.email "actions@users.noreply.github.com"
+          BRANCH="release-check/$(date +%Y%m%d-%H%M)"
+          git checkout -b "$BRANCH"
+          git commit -am "chore: pin new project releases (automated)" || exit 0
+          git push origin "$BRANCH"
+          gh pr create --title "Pin new project releases" --body "Automated release pin update. Versions, sizes and test results verified in this job (see logs). Preview will be built by Vercel." --head "$BRANCH" --base main

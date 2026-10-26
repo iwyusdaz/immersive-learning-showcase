@@ -1,0 +1,22 @@
+{
+  "siteTitle": "Immersive Learning Lab",
+  "tagline": "Realistic 3D where it helps learning, restraint where it doesn't — seven games and mini courses built with three.js.",
+  "canonicalUrl": "https://immersive-learning-showcase.vercel.app",
+  "owner": {
+    "github": "https://github.com/iwyusdaz",
+    "email": "[Email]",
+    "linkedin": "[LinkedIn]"
+  },
+  "comingSoonSummaries": {
+    "lunar-field-expedition": "Land at the real Apollo 15 site, read the terrain under changing sunlight, plan a sampling traverse and defend your findings.",
+    "object-detective": "Examine artifacts under raking light, corroborate with archival records, and write an honest museum label.",
+    "field-ecologist": "Design a sampling plan for a realistic meadow, then see the true population and how your design biased your estimate.",
+    "hazard-hunt": "Spot warehouse hazards in realistic 3D, replay a near-miss with pause-and-decide moments, and practice reporting.",
+    "arrival-english": "Buy a ticket, order food, ask a pharmacist, fix a booking — task-based English practice in a realistic 3D city.",
+    "glacier-time-machine": "Stand where a glaciologist stood in 1941, align repeat photos to real 3D terrain, and measure glacier retreat.",
+    "first-session-tutor-sim": "Run your first tutoring session with three simulated students — read cues, choose moves, practice wait time."
+  },
+  "evaluationNote": "Automated functional, accessibility and performance testing plus agent-based design reviews are complete. No real learners have tested this yet.",
+  "deviceNote": "Best on a desktop or laptop browser. Phones are supported with lighter graphics.",
+  "privacyNote": "This site doesn't track you. Progress is saved only in your browser."
+}

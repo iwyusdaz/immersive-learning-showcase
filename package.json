@@ -5,7 +5,7 @@
   "type": "module",
   "description": "One Vercel project assembling seven three.js learning projects into a single showcase with pinned, checksum-verified release builds",
   "engines": {
-    "node": ">=22"
+    "node": "24.x"
   },
   "scripts": {
     "build": "node scripts/assemble.mjs && node scripts/build-site.mjs && node scripts/check-dist.mjs",

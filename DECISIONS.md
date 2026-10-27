@@ -10,14 +10,19 @@
 | 6 | Lighthouse assertions ≥ 95 on the landing page only | Per-project Lighthouse | Plan 08 section 11 specifies the landing page; projects are covered by their own perf tests | 2026-10-27 |
 | 7 | `check-releases.yml` re-runs full validation itself and sets the `validate` status | Rely on ci.yml | GITHUB_TOKEN PRs don't trigger other workflows; branch protection needs the status check | 2026-10-27 |
 | 8 | Vercel limits recorded here before first deploy | Check after | Required by 08 5.5 | 2026-10-27 |
+| 9 | Node major pinned to `24.x` in `engines` | `>=22` | Vercel picks the Node version from `engines`; `24.x` matches CI (actions/setup-node 24) and local Node v24.22.1 | 2026-10-27 |
+| 10 | Vercel account and scope | — | `vercel whoami` → `iwyusd`, scope `iwyusds-projects` (personal, Hobby). Checked before any Vercel action; no existing `immersive-learning-showcase` project. | 2026-10-27 |
 
 ## Vercel limits (checked before first deployment)
 
-Per Vercel's published limits (docs/limits, Hobby plan) as of 2026-10-27:
-- **Max deployment size / individual file (static):** individual static asset limit ~100 MB per file is the historical guidance; our contract caps every file at **20 MB**, well inside any limit.
-- **Fast Data Transfer:** 100 GB/month on Hobby.
-- **Deployments:** ~100/day on Hobby (we batch release PRs).
-- **Max build output:** Hobby allows large static deployments, but our whole-site budget is **≤ 1 GB** and per-project ≤ 150 MB target — inside limits.
-- Conclusion: our budgets (20 MB/file, 150 MB/project, 1 GB/site) are stricter than Vercel's limits; no tightening needed.
+Source: https://vercel.com/docs/limits (page last updated 2026-09-16), read on 2026-10-27. Hobby plan:
+- Deployments created per day: **100** (also 100/hour and 60 per 5 minutes).
+- Build time per deployment: **45 minutes**.
+- Static file uploads via the CLI: **100 MB** of source files per deployment.
+- Source files per CLI deployment: **15,000**. No hard limit on build output files.
+- Concurrent deployments: **1**. Build disk: 32 GB.
+- Fast Data Transfer: 100 GB/month (plan 08 section 12, Hobby allotment).
 
-**NOTE:** `vercel whoami` currently fails ("The specified token is not valid"), so the live limits page could not be re-fetched from an authenticated session; values above are from the public docs. Recorded as an owner task in OWNER-TASKS.md at `repos/immersive/OWNER-TASKS.md`.
+Effect on our budgets:
+- The 100 MB CLI limit applies to *uploaded source*, not build output. The showcase source is small (well under 1 MB); release archives are downloaded during the Vercel build, so they don't count toward it. Budgets of 20 MB per file, 150 MB per project and 1 GB for the whole site stay as they are.
+- With one concurrent build and 100 deployments/day, release pins are batched into one PR where possible.

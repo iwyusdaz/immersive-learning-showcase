@@ -28,7 +28,9 @@ for (const app of apps) {
     const canvasOk = (await canvas.count()) > 0 && ((await canvas.first().boundingBox())?.height ?? 0) > 0;
     expect(canvasOk || (await fallback.count()) > 0, 'canvas or WebGL fallback expected').toBe(true);
 
-    await page.getByRole('button', { name: /text mode/i }).first().click();
+    if (!(await page.locator('#textmode').isVisible())) {
+      await page.getByRole('button', { name: /text mode/i }).first().click();
+    }
     await expect(page.locator('#textmode')).toBeVisible();
 
     const link = page.getByRole('link', { name: /all projects/i }).first();

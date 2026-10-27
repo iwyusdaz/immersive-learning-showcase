@@ -11,7 +11,8 @@ export default defineConfig({
     : {
         command: 'node scripts/serve-dist.mjs',
         url: 'http://127.0.0.1:4173',
-        reuseExistingServer: !process.env.CI,
+        // Never reuse: another repo's preview server on the same port would be tested by mistake.
+        reuseExistingServer: false,
         timeout: 30_000,
       },
   projects: [{ name: 'chromium', use: { browserName: 'chromium' } }],

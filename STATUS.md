@@ -12,6 +12,7 @@ Last updated: 2026-10-27
 | ci.yml / check-releases.yml / post-deploy.yml | done |
 | Branch protection + "allow GHA to create PRs" setting | pending (set via gh api after first CI runs; see below) |
 | Local build + tests green | done (see results/) |
+| GitHub CI (validate) green on main | done — run 40381675716 (includes assemble, axe, keyboard, 320px, Lighthouse ≥ 95, gitleaks) |
 | First Vercel deployment | **blocked — `vercel whoami` fails: "The specified token is not valid"** (owner must re-authenticate; never run by the agent) |
 | Production URL in site.config.json + READMEs | partially: expected URL written, marked pending deployment |
 | apps.json pins (all 7 projects) | coming-soon; pins land as releases tag |

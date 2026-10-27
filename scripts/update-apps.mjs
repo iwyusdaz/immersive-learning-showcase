@@ -39,7 +39,10 @@ if (mode === '--check') {
 }
 
 if (mode === '--update') {
-  const [, , slug, version, sha256] = process.argv;
+  // argv: node, script, --update, slug, version, sha256 — slug starts at index 3.
+  const slug = process.argv[3];
+  const version = process.argv[4];
+  const sha256 = process.argv[5];
   const app = apps.apps.find((a) => a.slug === slug);
   if (!app) { console.error(`unknown slug ${slug}`); process.exit(1); }
   app.status = 'live';

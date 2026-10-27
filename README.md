@@ -2,7 +2,9 @@
 
 One Vercel project that hosts all seven three.js learning projects plus this landing page.
 
-**[Production URL](https://immersive-learning-showcase.vercel.app/)** (pending first deployment) · Each project plays at `/play/<slug>/` · Role: Sole designer
+**[Live site](https://immersive-learning-showcase.vercel.app/)** · Each project plays at `/play/<slug>/` · Role: Sole designer
+
+Deployment: one Vercel project (`immersive-learning-showcase`, Hobby plan) with Git integration. Pushes to `main` deploy to Production; pull requests get protected Preview deployments. Check usage in the Vercel dashboard once a month.
 
 ## What this repo does
 

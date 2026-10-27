@@ -66,4 +66,22 @@ if (bad.length) {
 for (const f of ['index.html', '404.html', 'sitemap.xml', 'robots.txt', 'credits/index.html', 'accessibility/index.html']) {
   if (!existsSync(join(DIST, f))) { console.error(`check-dist: missing required file ${f}`); process.exit(1); }
 }
+
+// Every local file referenced by the site's own pages must exist in dist/
+// (catches a stylesheet or script that the build forgot to copy).
+const missingRefs = [];
+for (const f of files) {
+  const rel = relative(DIST, f);
+  if (rel.startsWith('play/') || extname(f) !== '.html') continue;
+  const html = readFileSync(f, 'utf8');
+  for (const m of html.matchAll(/(?:href|src)="(\/[^"#?]*)"/g)) {
+    const ref = m[1];
+    if (ref === '/' || ref.endsWith('/') || ref.startsWith('/play/')) continue; // page links, checked by tests
+    if (!existsSync(join(DIST, ref))) missingRefs.push(`${rel} -> ${ref}`);
+  }
+}
+if (missingRefs.length) {
+  console.error('check-dist: pages reference files missing from dist:\n' + [...new Set(missingRefs)].join('\n'));
+  process.exit(1);
+}
 console.log('check-dist: OK');

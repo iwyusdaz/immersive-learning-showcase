@@ -5,6 +5,20 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
+test('site stylesheet and script load with correct content types', async ({ page }) => {
+  const bad = [];
+  page.on('response', (r) => {
+    const u = new URL(r.url());
+    if (u.pathname.endsWith('.css') && !(r.headers()['content-type'] || '').includes('text/css')) bad.push(`${u.pathname} ${r.status()} ${r.headers()['content-type']}`);
+    if (r.status() >= 400) bad.push(`${u.pathname} ${r.status()}`);
+  });
+  await page.goto('/', { waitUntil: 'networkidle' });
+  expect(bad).toEqual([]);
+  // Styles actually applied: the site header uses the surface background, not the UA default.
+  const bg = await page.locator('.site-header').evaluate((el) => getComputedStyle(el).backgroundColor);
+  expect(bg).not.toBe('rgba(0, 0, 0, 0)');
+});
+
 test('landing shows the header, intro and project grid', async ({ page }) => {
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText(/realistic 3d/i);
@@ -35,7 +49,7 @@ test('all internal links resolve and GitHub links point at iwyusdaz repos', asyn
   const unique = [...new Set(hrefs)];
   for (const href of unique) {
     if (href.startsWith('/')) {
-      const res = await page.request.get(new URL(href, 'http://127.0.0.1:4173').toString());
+      const res = await page.request.get(new URL(href, page.url()).toString());
       expect(res.status(), href).toBeLessThan(400);
     } else if (href.startsWith('https://github.com/')) {
       expect(href, 'github links must be iwyusdaz').toMatch(/^https:\/\/github\.com\/iwyusdaz(\/|$)/);

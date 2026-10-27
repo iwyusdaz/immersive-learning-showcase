@@ -28,10 +28,18 @@ for (const app of apps) {
     const canvasOk = (await canvas.count()) > 0 && ((await canvas.first().boundingBox())?.height ?? 0) > 0;
     expect(canvasOk || (await fallback.count()) > 0, 'canvas or WebGL fallback expected').toBe(true);
 
-    if (!(await page.locator('#textmode').isVisible())) {
+    // Text mode is reachable either as the template's #textmode panel or, for
+    // apps that implement it on the root element (object-detective), as
+    // html[data-textmode="on"].
+    const templateTextMode = page.locator('#textmode');
+    if (!(await templateTextMode.isVisible()) && (await page.getAttribute('html', 'data-textmode')) !== 'on') {
       await page.getByRole('button', { name: /text mode/i }).first().click();
     }
-    await expect(page.locator('#textmode')).toBeVisible();
+    if ((await page.getAttribute('html', 'data-textmode')) === 'on') {
+      expect(await page.getAttribute('html', 'data-textmode')).toBe('on');
+    } else {
+      await expect(templateTextMode).toBeVisible();
+    }
 
     const link = page.getByRole('link', { name: /all projects/i }).first();
     await expect(link).toHaveAttribute('href', '/');

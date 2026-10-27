@@ -1,11 +1,53 @@
 {
   "apps": [
-    { "slug": "lunar-field-expedition", "repo": "iwyusdaz/lunar-field-expedition", "status": "coming-soon" },
-    { "slug": "object-detective", "repo": "iwyusdaz/object-detective", "status": "coming-soon" },
-    { "slug": "field-ecologist", "repo": "iwyusdaz/field-ecologist", "status": "coming-soon" },
-    { "slug": "hazard-hunt", "repo": "iwyusdaz/hazard-hunt", "status": "coming-soon" },
-    { "slug": "arrival-english", "repo": "iwyusdaz/arrival-english", "status": "coming-soon" },
-    { "slug": "glacier-time-machine", "repo": "iwyusdaz/glacier-time-machine", "status": "coming-soon" },
-    { "slug": "first-session-tutor-sim", "repo": "iwyusdaz/first-session-tutor-sim", "status": "coming-soon" }
+    {
+      "slug": "lunar-field-expedition",
+      "repo": "iwyusdaz/lunar-field-expedition",
+      "status": "live",
+      "version": "1.0.0",
+      "sha256": "cbaa60f5bb335647958d2be02a690c8b0ed69a2412d150bed197368e329fe986"
+    },
+    {
+      "slug": "object-detective",
+      "repo": "iwyusdaz/object-detective",
+      "status": "live",
+      "version": "1.0.0",
+      "sha256": "cba7301658beb3bd89e2b58e46103c52a371ebde4d5a733c15b5d3daa07331d6"
+    },
+    {
+      "slug": "field-ecologist",
+      "repo": "iwyusdaz/field-ecologist",
+      "status": "live",
+      "version": "1.0.0",
+      "sha256": "cfbb8003c3c64998b13ca0a2340349d8485ac9d0a0bce2440a46f6ce5af5b1d2"
+    },
+    {
+      "slug": "hazard-hunt",
+      "repo": "iwyusdaz/hazard-hunt",
+      "status": "live",
+      "version": "1.0.0",
+      "sha256": "071cfc533a78277945bae8086de7d7002e03ae12fc1f7d0f3d2bd0b482b5787d"
+    },
+    {
+      "slug": "arrival-english",
+      "repo": "iwyusdaz/arrival-english",
+      "status": "live",
+      "version": "1.0.0",
+      "sha256": "af6eef9d20a80d419d1918d384b0c1e38a2dc6050ac3548b60de1577cf75318a"
+    },
+    {
+      "slug": "glacier-time-machine",
+      "repo": "iwyusdaz/glacier-time-machine",
+      "status": "live",
+      "version": "1.0.0",
+      "sha256": "aa4532da006f4e8833682c735016c906e3a72df453c627ac6d286871fe4fc420"
+    },
+    {
+      "slug": "first-session-tutor-sim",
+      "repo": "iwyusdaz/first-session-tutor-sim",
+      "status": "live",
+      "version": "1.0.0",
+      "sha256": "1799269857fc360422be4bee770e4dd03da41fa56c5f1c8d1b88eab888baf89d"
+    }
   ]
 }

@@ -200,10 +200,11 @@ ${a11ySections || '<p>No released projects yet.</p>'}
     mkdirSync(join(DIST, 'assets'), { recursive: true });
     for (const f of readdirSync(assetsDir)) copyFileSync(join(assetsDir, f), join(DIST, 'assets', f));
   }
-  const scriptsDir = join(ROOT, 'src', 'scripts');
-  if (existsSync(scriptsDir)) {
-    mkdirSync(join(DIST, 'scripts'), { recursive: true });
-    for (const f of readdirSync(scriptsDir)) copyFileSync(join(scriptsDir, f), join(DIST, 'scripts', f));
+  for (const sub of ['scripts', 'styles']) {
+    const srcDir = join(ROOT, 'src', sub);
+    if (!existsSync(srcDir)) continue;
+    mkdirSync(join(DIST, sub), { recursive: true });
+    for (const f of readdirSync(srcDir)) copyFileSync(join(srcDir, f), join(DIST, sub, f));
   }
 
   // permissions note: vercel.json Permissions-Policy must match manifests

@@ -12,6 +12,14 @@
 | 8 | Vercel limits recorded here before first deploy | Check after | Required by 08 5.5 | 2026-10-27 |
 | 9 | Node major pinned to `24.x` in `engines` | `>=22` | Vercel picks the Node version from `engines`; `24.x` matches CI (actions/setup-node 24) and local Node v24.22.1 | 2026-10-27 |
 | 10 | Vercel account and scope | — | `vercel whoami` → `iwyusd`, scope `iwyusds-projects` (personal, Hobby). Checked before any Vercel action; no existing `immersive-learning-showcase` project. | 2026-10-27 |
+| 11 | Deploy mode: **Git integration** | CLI mode (`vercel deploy --prod`) | `vercel link --yes --project immersive-learning-showcase` created the project and connected `iwyusdaz/immersive-learning-showcase`; `vercel git connect` confirmed it. Production branch `main`; PRs get Preview deployments behind Vercel Authentication (preview returned 302 to unauthenticated requests). | 2026-10-27 |
+| 12 | Deleted the `.env.local` that `vercel link` wrote | Keep it | It holds a short-lived OIDC token the static site never uses. Deleted unread; `.env*` and `.vercel` are gitignored and excluded by `.vercelignore`. No environment variables are configured on the project. | 2026-10-27 |
+| 13 | Site CSS copied by `build-site.mjs`; `check-dist.mjs` fails on any missing local reference | — | The first production deploy served `/styles/site.css` as a 404 page (the copy step only handled `scripts/`), so the live landing page was unstyled. Local tests missed it because they didn't check CSS. Now covered by a test and a build gate. | 2026-10-27 |
+
+## Deployment log
+- **dpl_aDCQqPgZCu9z2tMhvyXX3ENYL8T7** (Production, ref `vercel-setup` @ e588906): the first push after connecting Git deployed as Production before a Preview existed. Content was `main` plus ignore-file changes. Superseded below.
+- **Preview** for PR #1 (`immersive-learning-showcase-2y0jguz4b-…`): build log clean (assemble, build-site, check-dist OK); unauthenticated request returned 302 (protected).
+- **dpl_8RtwewBtop2yfN4E24gBMxnjarKA** (Production, `main` @ d445c85): after merging PR #1. Live checks: 10 passed, 1 skipped (asset content types need a live project). Lighthouse (live, 13.5.0): performance 100, accessibility 100, best practices 96, SEO 100. The best-practices console error came from the missing stylesheet (decision 13).
 
 ## Vercel limits (checked before first deployment)
 

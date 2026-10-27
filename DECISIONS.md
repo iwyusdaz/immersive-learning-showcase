@@ -34,3 +34,12 @@ Source: https://vercel.com/docs/limits (page last updated 2026-09-16), read on 2
 Effect on our budgets:
 - The 100 MB CLI limit applies to *uploaded source*, not build output. The showcase source is small (well under 1 MB); release archives are downloaded during the Vercel build, so they don't count toward it. Budgets of 20 MB per file, 150 MB per project and 1 GB for the whole site stay as they are.
 - With one concurrent build and 100 deployments/day, release pins are batched into one PR where possible.
+
+## Deployment log — v1.0.0 pin (2026-10-28)
+
+- All seven projects released `v1.0.0` (each release job re-ran full CI, packed `dist/` and published `<slug>-1.0.0.tar.gz` + `.tar.gz.sha256`).
+- PR #3 (`pin-v1-0-0`): pinned all seven in `apps.json` after verifying every archive against its published checksum; fixed `update-apps.mjs` `--update` argument parsing (read the slug from the mode position — would have broken `check-releases.yml`); the sub-path contract test now accepts object-detective's root-element text mode. CI + Vercel preview green; merged.
+- Production after merge: landing 200; all seven `/play/<slug>/` 200.
+- Live checks: `live-headers.spec.js` 3/3 with `BASE_URL` = production (the `.glb`/`.ktx2` content-type check, skipped pre-pin, now passes). Lighthouse (live landing, post-pin): performance 97, accessibility 100, best practices 100, SEO 100 — performance dropped from 100 because the cards now carry real posters/content.
+- Per-project first-load transfer (production, no interaction): landing 279 KB; lunar 5260 KB; object-detective 2216 KB; field-ecologist 1686 KB; hazard-hunt 3250 KB; arrival-english 330 KB; glacier 1529 KB; tutor-sim 5967 KB (tool: `../_tools/live-transfer.mjs`; raw: `../_tools/live-transfer-2026-10-27.json`). All within the 15 MB budget.
+- **Rollback test (plan §8):** with two production deployments live, `vercel rollback` to the pre-pin deployment moved the production alias within seconds (landing showed 7 "Coming soon" cards; `/play/lunar-field-expedition/` 404 as expected for that build). Rolling forward to the pinned deployment restored the full site (0 "Coming soon", all seven sub-paths 200). One transient `fetch failed` on the roll-forward command; an immediate retry succeeded.

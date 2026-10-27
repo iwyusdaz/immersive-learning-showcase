@@ -31,3 +31,5 @@ playwright-report/
 
 # Mimosa security-hook state (local-only)
 .mimosa/
+.vercel
+.env*

@@ -1,0 +1,9 @@
+# Vercel builds from source: npm ci + npm run build. Keep uploads to source only.
+node_modules
+dist
+tmp
+test-results
+playwright-report
+.mimosa
+.env*
+.DS_Store

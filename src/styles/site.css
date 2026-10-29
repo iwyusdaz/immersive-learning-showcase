@@ -111,3 +111,57 @@ main th, main td { border: 1px solid color-mix(in srgb, var(--muted) 40%, transp
 @media (max-width: 640px) {
   .hero { padding-top: 2rem; }
 }
+
+/* Per-case self-hosted display typography & colour accents (v2.0.0) */
+@font-face { font-family: 'Michroma'; font-style: normal; font-weight: 400; font-display: swap; src: url('/assets/michroma-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Cormorant Garamond'; font-style: normal; font-weight: 700; font-display: swap; src: url('/assets/cormorant-garamond-latin-700-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Fraunces'; font-style: normal; font-weight: 700; font-display: swap; src: url('/assets/fraunces-latin-700-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Big Shoulders Stencil Display'; font-style: normal; font-weight: 700; font-display: swap; src: url('/assets/big-shoulders-stencil-display-latin-700-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Bricolage Grotesque'; font-style: normal; font-weight: 700; font-display: swap; src: url('/assets/bricolage-grotesque-latin-700-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 700; font-display: swap; src: url('/assets/playfair-display-latin-700-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Sora'; font-style: normal; font-weight: 700; font-display: swap; src: url('/assets/sora-latin-700-normal.woff2') format('woff2'); }
+
+.card[data-slug] {
+  border-top: 3px solid var(--card-accent, var(--accent));
+}
+.card[data-slug] h3 {
+  font-family: var(--card-font, inherit);
+  font-size: var(--card-title-size, 1.2rem);
+  letter-spacing: 0.01em;
+}
+.card[data-slug="lunar-field-expedition"] {
+  --card-font: 'Michroma', sans-serif;
+  --card-title-size: 1.04rem;
+  --card-accent: #e87722;
+}
+.card[data-slug="object-detective"] {
+  --card-font: 'Cormorant Garamond', Georgia, serif;
+  --card-title-size: 1.32rem;
+  --card-accent: #f2b25c;
+}
+.card[data-slug="field-ecologist"] {
+  --card-font: 'Fraunces', Georgia, serif;
+  --card-title-size: 1.24rem;
+  --card-accent: #6e9b4e;
+}
+.card[data-slug="hazard-hunt"] {
+  --card-font: 'Big Shoulders Stencil Display', Impact, sans-serif;
+  --card-title-size: 1.34rem;
+  --card-accent: #ffd100;
+}
+.card[data-slug="arrival-english"] {
+  --card-font: 'Bricolage Grotesque', system-ui, sans-serif;
+  --card-title-size: 1.24rem;
+  --card-accent: #2bb3b3;
+}
+.card[data-slug="glacier-time-machine"] {
+  --card-font: 'Playfair Display', Georgia, serif;
+  --card-title-size: 1.26rem;
+  --card-accent: #7fb7d6;
+}
+.card[data-slug="first-session-tutor-sim"] {
+  --card-font: 'Sora', system-ui, sans-serif;
+  --card-title-size: 1.18rem;
+  --card-accent: #f3c77a;
+}
+

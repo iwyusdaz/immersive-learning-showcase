@@ -43,7 +43,7 @@ function card(entry) {
     </li>`;
   }
   const m = manifest;
-  return `<li class="card" data-format="${esc(m.format)}" data-niche="${esc(m.niche)}">
+  return `<li class="card" data-slug="${esc(m.slug)}" data-format="${esc(m.format)}" data-niche="${esc(m.niche)}">
     <img class="poster" src="/posters/${esc(app.slug)}-${esc(m.version)}.webp" alt="${esc(m.poster.alt)}" width="1200" height="630" loading="lazy">
     <h3>${esc(m.title)}</h3>
     ${formatBadge(m.format)}
@@ -155,9 +155,23 @@ ${footer}`;
     return `<section aria-labelledby="credits-${esc(e.app.slug)}"><h2 id="credits-${esc(e.app.slug)}">${esc(e.manifest.title)}</h2>
     <table><thead><tr><th scope="col">Asset</th><th scope="col">Author</th><th scope="col">Source</th><th scope="col">License</th><th scope="col">Changes</th></tr></thead><tbody>${rows}</tbody></table></section>`;
   }).join('\n');
+  // Card-title display fonts served from /assets/ by the landing page itself.
+  const landingFonts = [
+    ['Michroma 400', 'Vernon Adams'],
+    ['Cormorant Garamond 700', 'Christian Thalmann (The Cormorant Project)'],
+    ['Fraunces 700', 'Undercase Type (Phaedra Charles, Flavia Zimbardi)'],
+    ['Big Shoulders Stencil Display 700', 'Patric King, XO Type Co'],
+    ['Bricolage Grotesque 700', 'Mathieu Triay'],
+    ['Playfair Display 700', 'Claus Eggers Sørensen'],
+    ['Sora 700', 'Jonathan Barnbrook; The Sora Project'],
+  ];
+  const landingRows = landingFonts.map(([asset, author]) => `<tr><td>${esc(asset)} (latin subset, woff2)</td><td>${esc(author)}</td><td><a href="https://fontsource.org/">https://fontsource.org/</a></td><td>OFL-1.1</td><td>none</td></tr>`).join('\n');
+  const landingCredits = `<section aria-labelledby="credits-landing"><h2 id="credits-landing">Landing page</h2>
+    <table><thead><tr><th scope="col">Asset</th><th scope="col">Author</th><th scope="col">Source</th><th scope="col">License</th><th scope="col">Changes</th></tr></thead><tbody>${landingRows}</tbody></table></section>`;
   const creditsBody = `${header()}
 <main id="main"><h1>Credits and attribution</h1>
 <p>Every third-party asset used by every project, with its license. Each project's repo carries its own ATTRIBUTION.md.</p>
+${landingCredits}
 ${creditSections || '<p>No released projects yet.</p>'}
 </main>${footer}`;
   mkdirSync(join(DIST, 'credits'), { recursive: true });

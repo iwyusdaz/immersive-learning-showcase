@@ -18,8 +18,8 @@
       "slug": "field-ecologist",
       "repo": "iwyusdaz/field-ecologist",
       "status": "live",
-      "version": "1.0.0",
-      "sha256": "cfbb8003c3c64998b13ca0a2340349d8485ac9d0a0bce2440a46f6ce5af5b1d2"
+      "version": "2.0.1",
+      "sha256": "890aa11c1f8c30d0785597d765193fcaed663686e454d46caff30c6fd7c9ad49"
     },
     {
       "slug": "hazard-hunt",
@@ -46,8 +46,8 @@
       "slug": "first-session-tutor-sim",
       "repo": "iwyusdaz/first-session-tutor-sim",
       "status": "live",
-      "version": "1.0.0",
-      "sha256": "1799269857fc360422be4bee770e4dd03da41fa56c5f1c8d1b88eab888baf89d"
+      "version": "2.0.0",
+      "sha256": "9b7fd52c0bd3297f84163d997a7399cb0cd1629a3f8624cc01f5f6f529abbe63"
     }
   ]
 }

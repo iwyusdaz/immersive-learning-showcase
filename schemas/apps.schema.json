@@ -13,7 +13,9 @@
           "slug": { "type": "string", "pattern": "^[a-z0-9-]+$" },
           "repo": { "type": "string", "pattern": "^[A-Za-z0-9-]+/[A-Za-z0-9_.-]+$" },
           "status": { "type": "string", "enum": ["live", "coming-soon"] },
-          "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+          "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+(-preview\\.[0-9a-f]{7})?$" },
+          "previewTag": { "type": "string", "pattern": "^v\\d+-preview-[0-9a-f]{7}$", "description": "Preview pins only (owner sign-off previews, never merged to main): the pre-release tag holding the archive." },
+          "commit": { "type": "string", "pattern": "^[0-9a-f]{40}$", "description": "Preview pins only: the commit the preview archive was built from." },
           "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
         },
         "if": { "properties": { "status": { "const": "live" } } },

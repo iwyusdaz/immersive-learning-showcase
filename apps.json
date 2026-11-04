@@ -4,8 +4,10 @@
       "slug": "lunar-field-expedition",
       "repo": "iwyusdaz/lunar-field-expedition",
       "status": "live",
-      "version": "2.0.0",
-      "sha256": "070a047e3f6cb9ed6af6ab2e21d6a3f5db79f82c69801d4b9b52608489417908"
+      "version": "3.0.0-preview.f6e4ce4",
+      "sha256": "3d9aa4a115ef690fef3c44113e68b69178a651b49aa26cc08f731fa9d6a202ce",
+      "previewTag": "v3-preview-f6e4ce4",
+      "commit": "f6e4ce4e55a00a2c22cca8353e3e460cb7ca6bcf"
     },
     {
       "slug": "object-detective",

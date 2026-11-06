@@ -13,22 +13,28 @@
       "slug": "object-detective",
       "repo": "iwyusdaz/object-detective",
       "status": "live",
-      "version": "2.0.1",
-      "sha256": "65e29d1c4d9f097151b0f2d5070c83832b7e000829999d3ffb973fcf30518663"
+      "version": "3.0.0-preview.bc55d78",
+      "sha256": "4ced3f5a894fb11f5f6cbfdf2fbcc4a88c50fa93082b0c1181366a0e26b7bb4d",
+      "previewTag": "v3-preview-bc55d78",
+      "commit": "bc55d78ecb8d412a289a45c257075ffee2f00b53"
     },
     {
       "slug": "field-ecologist",
       "repo": "iwyusdaz/field-ecologist",
       "status": "live",
-      "version": "2.0.1",
-      "sha256": "890aa11c1f8c30d0785597d765193fcaed663686e454d46caff30c6fd7c9ad49"
+      "version": "3.0.0-preview.73941ae",
+      "sha256": "4ab7de4ce37c4ec60ce261bceeb2e76ef228018f36c0c74db539ad0bac27799f",
+      "previewTag": "v3-preview-73941ae",
+      "commit": "73941aefba4a88e1ec4d1d5557a9d1968777247b"
     },
     {
       "slug": "hazard-hunt",
       "repo": "iwyusdaz/hazard-hunt",
       "status": "live",
-      "version": "2.0.1",
-      "sha256": "0691fe3d823715f5b307dd5c160ba533e04ca1e8918efd51268d41b249731900"
+      "version": "3.0.0-preview.cc88a02",
+      "sha256": "6750f13b2fed64496969fd1258c5cbe01cff7ac67c9ca66834f1d0dcf3a39581",
+      "previewTag": "v3-preview-cc88a02",
+      "commit": "cc88a023f1d70749e8470b3e9ea215eaab969921"
     },
     {
       "slug": "arrival-english",
@@ -41,8 +47,10 @@
       "slug": "glacier-time-machine",
       "repo": "iwyusdaz/glacier-time-machine",
       "status": "live",
-      "version": "2.0.0",
-      "sha256": "1161bfdbeed839d5d78590584f1bd97e0add06a371f071d23ea8e52a935a859c"
+      "version": "3.0.0-preview.26cd92e",
+      "sha256": "376c8ca81568342a84f0e5c52e095691a6860a87a4186a87566b84ea4c865cf7",
+      "previewTag": "v3-preview-26cd92e",
+      "commit": "26cd92e79847e22710233258877f3d2c12c84c72"
     },
     {
       "slug": "first-session-tutor-sim",

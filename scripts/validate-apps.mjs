@@ -10,7 +10,10 @@ for (const a of apps.apps) {
   if (!/^[a-z0-9-]+$/.test(a.slug || '')) errors.push(`${a.slug}: bad slug`);
   if (!/^[A-Za-z0-9-]+\/[A-Za-z0-9_.-]+$/.test(a.repo || '')) errors.push(`${a.slug}: bad repo`);
   if (!['live', 'coming-soon'].includes(a.status)) errors.push(`${a.slug}: bad status`);
-  if (a.status === 'live' && (!a.version || !/^\d+\.\d+\.\d+$/.test(a.version))) errors.push(`${a.slug}: live needs version`);
+  // A preview pin (plan 10 §8 owner previews, never merged to main) carries a pre-release version.
+  const versionRe = a.previewTag ? /^\d+\.\d+\.\d+-preview\.[0-9a-f]{7}$/ : /^\d+\.\d+\.\d+$/;
+  if (a.status === 'live' && (!a.version || !versionRe.test(a.version))) errors.push(`${a.slug}: live needs version`);
+  if (a.previewTag && (!/^v\d+-preview-[0-9a-f]{7}$/.test(a.previewTag) || !/^[0-9a-f]{40}$/.test(a.commit || ''))) errors.push(`${a.slug}: preview pins need previewTag v<major>-preview-<sha7> and the full commit`);
   if (a.status === 'live' && (!a.sha256 || !/^[a-f0-9]{64}$/.test(a.sha256))) errors.push(`${a.slug}: live needs sha256`);
 }
 if (errors.length) {

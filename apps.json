@@ -4,50 +4,36 @@
       "slug": "lunar-field-expedition",
       "repo": "iwyusdaz/lunar-field-expedition",
       "status": "live",
-      "version": "2.0.0",
-      "sha256": "070a047e3f6cb9ed6af6ab2e21d6a3f5db79f82c69801d4b9b52608489417908"
+      "version": "3.0.0",
+      "sha256": "f1505e69ca0519d5274a4221506e0375125e5f5495f6225144da713f382c458f"
     },
     {
       "slug": "object-detective",
       "repo": "iwyusdaz/object-detective",
       "status": "live",
-      "version": "2.0.1",
-      "sha256": "65e29d1c4d9f097151b0f2d5070c83832b7e000829999d3ffb973fcf30518663"
-    },
-    {
-      "slug": "field-ecologist",
-      "repo": "iwyusdaz/field-ecologist",
-      "status": "live",
-      "version": "2.0.1",
-      "sha256": "890aa11c1f8c30d0785597d765193fcaed663686e454d46caff30c6fd7c9ad49"
+      "version": "3.0.0",
+      "sha256": "61c3830f90316d978fcb484a13a17cd826013bec9ad3ad66dc6193e246d6cbe4"
     },
     {
       "slug": "hazard-hunt",
       "repo": "iwyusdaz/hazard-hunt",
       "status": "live",
-      "version": "2.0.1",
-      "sha256": "0691fe3d823715f5b307dd5c160ba533e04ca1e8918efd51268d41b249731900"
+      "version": "3.0.0",
+      "sha256": "73390f7dcdc101c6aeaeb062483003bb42af814ebcd565120c7a50c06aa9a3cd"
     },
     {
-      "slug": "arrival-english",
-      "repo": "iwyusdaz/arrival-english",
+      "slug": "field-ecologist",
+      "repo": "iwyusdaz/field-ecologist",
       "status": "live",
-      "version": "2.0.1",
-      "sha256": "aced4b91b5ca11bdca30f7740b3951dfbd7c2caa1d79ee9a4c253cd8aad59dc0"
+      "version": "3.0.0",
+      "sha256": "4a7b79fc3660130a17e29ae354b073c36a4c64cdaead13afd88da7c16b905cd5"
     },
     {
       "slug": "glacier-time-machine",
       "repo": "iwyusdaz/glacier-time-machine",
       "status": "live",
-      "version": "2.0.0",
-      "sha256": "1161bfdbeed839d5d78590584f1bd97e0add06a371f071d23ea8e52a935a859c"
-    },
-    {
-      "slug": "first-session-tutor-sim",
-      "repo": "iwyusdaz/first-session-tutor-sim",
-      "status": "live",
-      "version": "2.0.0",
-      "sha256": "9b7fd52c0bd3297f84163d997a7399cb0cd1629a3f8624cc01f5f6f529abbe63"
+      "version": "3.0.0",
+      "sha256": "79b72fc06738734e8126d0ea872e761c7b151ee206f21e918ab0467db60395bb"
     }
   ]
 }

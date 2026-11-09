@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "One Vercel project assembling seven three.js learning projects into a single showcase with pinned, checksum-verified release builds",
+  "description": "One Vercel project assembling five three.js learning projects into a single showcase with pinned, checksum-verified release builds",
   "engines": {
     "node": "24.x"
   },

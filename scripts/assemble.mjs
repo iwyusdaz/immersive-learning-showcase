@@ -20,6 +20,9 @@ function validateApps() {
   for (const app of apps.apps) {
     if (!/^[a-z0-9-]+$/.test(app.slug)) errors.push(`${app.slug}: bad slug`);
     if (app.status === 'live' && (!app.version || !app.sha256)) errors.push(`${app.slug}: live entries need version + sha256`);
+    // Preview pins (owner sign-off previews, plan 10 §8; never merged to main): a pre-release
+    // archive of one commit, tag v3-preview-<sha7>, version 3.0.0-preview.<sha7>.
+    if (app.previewTag && !(/^v\d+-preview-[0-9a-f]{7}$/.test(app.previewTag) && /^[0-9a-f]{40}$/.test(app.commit || '') && app.version === `${app.previewTag.split('-')[0].slice(1)}.0.0-preview.${app.commit.slice(0, 7)}` && app.previewTag.endsWith(app.commit.slice(0, 7)))) errors.push(`${app.slug}: bad preview pin`);
     if (app.status === 'live' && app.sha256 && !/^[a-f0-9]{64}$/.test(app.sha256)) errors.push(`${app.slug}: bad sha256`);
   }
   if (errors.length) throw new Error('apps.json validation failed:\n' + errors.join('\n'));
@@ -60,7 +63,9 @@ async function main() {
 
   for (const app of apps.apps) {
     if (app.status !== 'live') continue;
-    const url = `https://github.com/${app.repo}/releases/download/v${app.version}/${app.slug}-${app.version}.tar.gz`;
+    const url = app.previewTag
+      ? `https://github.com/${app.repo}/releases/download/${app.previewTag}/${app.slug}-${app.previewTag}.tar.gz`
+      : `https://github.com/${app.repo}/releases/download/v${app.version}/${app.slug}-${app.version}.tar.gz`;
     const archive = join(tmp, `${app.slug}-${app.version}.tar.gz`);
     console.log(`assemble: downloading ${url}`);
     await fetchWithRetry(url, archive);

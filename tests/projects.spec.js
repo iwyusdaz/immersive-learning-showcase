@@ -1,8 +1,8 @@
 /**
  * For every live slug in apps.json: load /play/<slug>/ from the assembled dist
  * (served with the same headers as production), check for no failed requests,
- * no console errors, canvas or fallback present, text mode reachable, and
- * "All projects" returning to /.
+ * no console errors, canvas or fallback present, text mode reachable, and no
+ * "All projects" link on the project page (owner G2 feedback §1 removed it).
  */
 import { test, expect } from '@playwright/test';
 import { readFileSync } from 'node:fs';
@@ -41,8 +41,7 @@ for (const app of apps) {
       await expect(templateTextMode).toBeVisible();
     }
 
-    const link = page.getByRole('link', { name: /all projects/i }).first();
-    await expect(link).toHaveAttribute('href', '/');
+    await expect(page.getByRole('link', { name: /all projects/i })).toHaveCount(0);
     // CSP sanity: the response headers on the HTML must include our CSP
     const res = await page.request.get(`/play/${app.slug}/`);
     expect(res.headers()['content-security-policy']).toContain("default-src 'self'");

@@ -39,8 +39,7 @@ const server = createServer((req, res) => {
     'content-security-policy': CSP,
   };
   const pathWithSlash = urlPath.endsWith('/') ? urlPath : urlPath + '/';
-  if (/\/play\/arrival-english\//.test(pathWithSlash)) headers['permissions-policy'] = 'camera=(), microphone=(self), geolocation=(), payment=(), usb=()';
-  else headers['permissions-policy'] = 'camera=(), microphone=(), geolocation=(), payment=(), usb=()';
+  headers['permissions-policy'] = 'camera=(), microphone=(), geolocation=(), payment=(), usb=()';
   if (/\/posters\//.test(pathWithSlash) || /\/play\/[a-z0-9-]+\/.*\.(js|css|glb|bin|ktx2|wasm|webp|jpg|png|hdr|mp3|ogg|m4a|woff2)$/i.test(urlPath)) {
     headers['cache-control'] = 'public, max-age=31536000, immutable';
   } else if (extname(file) === '.html') {

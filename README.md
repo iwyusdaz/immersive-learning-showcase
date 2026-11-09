@@ -1,6 +1,6 @@
 # Immersive Learning Showcase
 
-One Vercel project that hosts all seven three.js learning projects plus this landing page.
+One Vercel project that hosts all five three.js learning projects plus this landing page.
 
 **[Live site](https://immersive-learning-showcase.vercel.app/)** · Each project plays at `/play/<slug>/` · Role: Sole designer
 
@@ -8,7 +8,7 @@ Deployment: one Vercel project (`immersive-learning-showcase`, Hobby plan) with 
 
 ## What this repo does
 
-Each of the seven project repos (`lunar-field-expedition`, `object-detective`, `field-ecologist`, `hazard-hunt`, `arrival-english`, `glacier-time-machine`, `first-session-tutor-sim`) publishes its built files as a GitHub Release asset (`<slug>-<version>.tar.gz` + `.sha256`). This repo pins versions in `apps.json`, downloads and verifies them at build time, and assembles one static site:
+Each of the five project repos (`lunar-field-expedition`, `object-detective`, `hazard-hunt`, `field-ecologist`, `glacier-time-machine`) publishes its built files as a GitHub Release asset (`<slug>-<version>.tar.gz` + `.sha256`). This repo pins versions in `apps.json`, downloads and verifies them at build time, and assembles one static site:
 
 ```
 project repo tags v1.x → release archive + sha256

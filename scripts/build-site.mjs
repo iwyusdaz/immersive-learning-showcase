@@ -5,6 +5,7 @@
  */
 import { readFileSync, writeFileSync, mkdirSync, existsSync, copyFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
+import { createHash } from 'node:crypto';
 import { marked } from 'marked';
 
 const ROOT = process.cwd();
@@ -26,10 +27,28 @@ function loadManifests() {
 }
 
 function formatBadge(format) { return `<span class="badge">${esc(format)}</span>`; }
+// Landing posters: headed-GPU screenshots of each project's v3 scene, kept in src/posters/
+// (<slug>.webp 1200x630 and <slug>-640.webp). Copied to /posters/ under a content-hashed
+// name, because /posters/ is served immutable.
+const posterUrls = {};
+function landingPoster(slug) {
+  if (posterUrls[slug]) return posterUrls[slug];
+  const out = {};
+  for (const [key, file] of [['large', `${slug}.webp`], ['small', `${slug}-640.webp`]]) {
+    const src = join(ROOT, 'src', 'posters', file);
+    if (!existsSync(src)) return null;
+    const hash = createHash('sha256').update(readFileSync(src)).digest('hex').slice(0, 10);
+    const name = file.replace('.webp', `-${hash}.webp`);
+    mkdirSync(join(DIST, 'posters'), { recursive: true });
+    copyFileSync(src, join(DIST, 'posters', name));
+    out[key] = `/posters/${name}`;
+  }
+  return (posterUrls[slug] = out);
+}
 
+const featureMap = { 'text-mode': 'Text mode', keyboard: 'Keyboard', 'reduced-motion': 'Reduced motion', captions: 'Captions', 'mobile-supported': 'Mobile' };
 function featureLabels(features) {
-  const map = { 'text-mode': 'Text mode', keyboard: 'Keyboard', 'reduced-motion': 'Reduced motion', captions: 'Captions', 'mobile-supported': 'Mobile supported' };
-  return features.map((f) => `<li>${esc(map[f] || f)}</li>`).join('');
+  return features.map((f) => `<li>${esc(featureMap[f] || f)}</li>`).join('');
 }
 
 function card(entry) {
@@ -43,22 +62,32 @@ function card(entry) {
     </li>`;
   }
   const m = manifest;
-  return `<li class="card" data-slug="${esc(m.slug)}" data-format="${esc(m.format)}" data-niche="${esc(m.niche)}">
-    <img class="poster" src="/posters/${esc(app.slug)}-${esc(m.version)}.webp" alt="${esc(m.poster.alt)}" width="1200" height="630" loading="lazy">
-    <h3>${esc(m.title)}</h3>
-    ${formatBadge(m.format)}
-    <p class="meta">${esc(m.niche)} · ${esc(m.audience)}</p>
-    <p class="summary">${esc(m.summary)}</p>
-    <p class="playtime">About ${esc(String(m.playTimeMinutes))} minutes</p>
-    <ul class="features">${featureLabels(m.features)}</ul>
-    ${m.contentNotes?.length ? `<p class="content-note">Content note: ${m.contentNotes.map(esc).join('; ')}</p>` : ''}
-    <p class="actions">
-      <a class="button" href="/play/${esc(m.slug)}/">Play ${esc(m.title)}</a>
-      <a class="link" href="${esc(m.repoUrl)}">Case study on GitHub</a>
-    </p>
+  const i = entry.index;
+  const own = site.posters?.[app.slug] || {};
+  const lp = landingPoster(app.slug);
+  const img = lp
+    ? `<img class="poster" src="${lp.large}" srcset="${lp.small} 640w, ${lp.large} 1200w" sizes="(max-width: 640px) 100vw, (max-width: 980px) 50vw, ${i < 2 ? '33rem' : '22rem'}" alt="${esc(own.alt || m.poster.alt)}" width="1200" height="630"${i < 2 ? ' fetchpriority="high"' : ' loading="lazy"'}>`
+    : `<img class="poster" src="/posters/${esc(app.slug)}-${esc(m.version)}.webp" alt="${esc(m.poster.alt)}" width="1200" height="630" loading="lazy">`;
+  const lede = site.comingSoonSummaries?.[app.slug] || m.summary;
+  return `<li class="card${i < 2 ? ' card-wide' : ''}" data-slug="${esc(m.slug)}" data-format="${esc(m.format)}" data-niche="${esc(m.niche)}">
+    <div class="poster-wrap">${img}${formatBadge(m.format)}</div>
+    <div class="card-body">
+      <p class="kicker"><span class="num" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>${esc(own.kicker || m.niche)}</p>
+      <h3>${esc(m.title)}</h3>
+      <p class="summary">${esc(lede)}</p>
+      <dl class="facts">
+        <div><dt>Subject</dt><dd>${esc(m.niche)}</dd></div>
+        <div><dt>Time</dt><dd>About ${esc(String(m.playTimeMinutes))} minutes</dd></div>
+      </dl>
+      <ul class="features" aria-label="Access features">${featureLabels(m.features.filter((f) => featureMap[f]))}</ul>
+      ${m.contentNotes?.length ? `<p class="content-note">Content note: ${m.contentNotes.map(esc).join('; ')}</p>` : ''}
+      <p class="actions">
+        <a class="button" href="/play/${esc(m.slug)}/">Play ${esc(m.title)}</a>
+        <a class="link" href="${esc(m.repoUrl)}">Case study<span class="visually-hidden"> for ${esc(m.title)}</span> on GitHub</a>
+      </p>
+    </div>
   </li>`;
 }
-
 function page({ title, description, body, path }) {
   const canonical = `${site.canonicalUrl}${path === '/' ? '' : path}`;
   return `<!doctype html>
@@ -103,7 +132,7 @@ ${body}
 const header = (active) => `
 <a class="skip-link" href="#main">Skip to projects</a>
 <header class="site-header">
-  <p class="site-title">${esc(site.siteTitle)}</p>
+  <a class="site-title" href="/"><span class="logo" aria-hidden="true"></span>${esc(site.siteTitle)}</a>
   <nav aria-label="Main">
     <a href="/#projects" ${active === 'projects' ? 'aria-current="page"' : ''}>Projects</a>
     <a href="/#about" ${active === 'about' ? 'aria-current="page"' : ''}>About</a>
@@ -120,19 +149,29 @@ const footer = `
 
 function main() {
   // index.html
-  const entries = loadManifests();
+  const entries = loadManifests().map((e, index) => ({ ...e, index }));
   const cards = entries.map(card).join('\n');
+  const live = entries.filter((e) => e.manifest);
   const filters = ['All', 'Game', 'Mini course', 'Hybrid'].map((f) => `<button type="button" class="filter-btn" data-filter="${f}" aria-pressed="${f === 'All'}">${f}</button>`).join('');
   const indexBody = `${header('projects')}
 <main id="main">
-  <section class="hero">
-    <h1>Realistic 3D where it helps learning.</h1>
+  <section class="hero" aria-labelledby="hero-h">
+    <p class="eyebrow">Immersive learning portfolio · three.js</p>
+    <h1 id="hero-h">Realistic 3D where it helps learning.</h1>
     <p class="tagline">${esc(site.tagline)}</p>
-    <p>Made by <a href="${esc(site.owner.github)}">@iwyusdaz</a> — see <a href="#about">about the approach</a>.</p>
+    <p class="hero-actions"><a class="button button-hero" href="#projects">Browse the projects</a> <a class="link" href="#about">About the approach</a></p>
+    <ul class="stats" aria-label="At a glance">
+      <li><strong>${live.length}</strong> playable projects</li>
+      <li><strong>Real data</strong> NASA, USGS, Smithsonian</li>
+      <li><strong>Text mode</strong> and full keyboard play</li>
+      <li><strong>No tracking</strong> and no sign-up</li>
+    </ul>
   </section>
   <section id="projects" aria-labelledby="projects-h">
-    <h2 id="projects-h" class="visually-hidden">Projects</h2>
-    <div class="filters" role="group" aria-label="Filter projects">${filters}</div>
+    <div class="section-head">
+      <h2 id="projects-h">Projects</h2>
+      <div class="filters" role="group" aria-label="Filter projects">${filters}</div>
+    </div>
     <p class="filter-status visually-hidden" aria-live="polite"></p>
     <ul class="cards">
 ${cards}
@@ -161,13 +200,12 @@ ${footer}`;
     ['Cormorant Garamond 700', 'Christian Thalmann (The Cormorant Project)'],
     ['Fraunces 700', 'Undercase Type (Phaedra Charles, Flavia Zimbardi)'],
     ['Big Shoulders Stencil Display 700', 'Patric King, XO Type Co'],
-    ['Bricolage Grotesque 700', 'Mathieu Triay'],
     ['Playfair Display 700', 'Claus Eggers Sørensen'],
-    ['Sora 700', 'Jonathan Barnbrook; The Sora Project'],
   ];
   const landingRows = landingFonts.map(([asset, author]) => `<tr><td>${esc(asset)} (latin subset, woff2)</td><td>${esc(author)}</td><td><a href="https://fontsource.org/">https://fontsource.org/</a></td><td>OFL-1.1</td><td>none</td></tr>`).join('\n');
   const landingCredits = `<section aria-labelledby="credits-landing"><h2 id="credits-landing">Landing page</h2>
-    <table><thead><tr><th scope="col">Asset</th><th scope="col">Author</th><th scope="col">Source</th><th scope="col">License</th><th scope="col">Changes</th></tr></thead><tbody>${landingRows}</tbody></table></section>`;
+    <table><thead><tr><th scope="col">Asset</th><th scope="col">Author</th><th scope="col">Source</th><th scope="col">License</th><th scope="col">Changes</th></tr></thead><tbody>${landingRows}</tbody></table>
+    <p>Project posters are screenshots of each project's own 3D scene; their assets are credited in the project sections below.</p></section>`;
   const creditsBody = `${header()}
 <main id="main"><h1>Credits and attribution</h1>
 <p>Every third-party asset used by every project, with its license. Each project's repo carries its own ATTRIBUTION.md.</p>
@@ -221,9 +259,9 @@ ${a11ySections || '<p>No released projects yet.</p>'}
     for (const f of readdirSync(srcDir)) copyFileSync(join(srcDir, f), join(DIST, sub, f));
   }
 
-  // permissions note: vercel.json Permissions-Policy must match manifests
-  const needMic = entries.some((e) => e.manifest?.permissions?.includes('microphone'));
-  if (!needMic) console.warn('note: no live manifest requests the microphone yet (arrival-english will)');
+  // vercel.json denies the microphone everywhere; a project that needs it must get its own rule.
+  const needMic = entries.filter((e) => e.manifest?.permissions?.includes('microphone')).map((e) => e.app.slug);
+  if (needMic.length) throw new Error(`build-site: ${needMic.join(', ')} request the microphone but vercel.json denies it`);
   console.log('build-site: done');
 }
 

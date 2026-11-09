@@ -142,7 +142,6 @@ const header = (active) => `
 
 const footer = `
 <footer class="site-footer">
-  <p>${esc(site.owner.email)} · <a href="${esc(site.owner.linkedin)}">${esc(site.owner.linkedin)}</a> · <a href="${esc(site.owner.github)}">GitHub</a></p>
   <p><a href="/credits/">Credits</a> · <a href="/accessibility/">Accessibility</a> · Landing page code: MIT · Text: CC BY 4.0 · Built with three.js</p>
   <p>${esc(site.privacyNote)}</p>
 </footer>`;
@@ -159,7 +158,18 @@ function main() {
     <p class="eyebrow">Immersive learning portfolio · three.js</p>
     <h1 id="hero-h">Realistic 3D where it helps learning.</h1>
     <p class="tagline">${esc(site.tagline)}</p>
-    <p class="hero-actions"><a class="button button-hero" href="#projects">Browse the projects</a> <a class="link" href="#about">About the approach</a></p>
+    <div class="hero-actions">
+      <a class="button button-hero" href="#projects">Browse the projects</a>
+      <details class="about-panel" id="about">
+        <summary class="button button-ghost">About the approach</summary>
+        <div class="about-body" role="region" aria-labelledby="about-h" tabindex="0">
+          <h2 id="about-h" class="visually-hidden">About the approach</h2>
+          <div class="prose">${marked.parse(landingMd)}</div>
+          <p><strong>Evaluation status:</strong> ${esc(site.evaluationNote)}</p>
+          <p>${esc(site.deviceNote)}</p>
+        </div>
+      </details>
+    </div>
     <ul class="stats" aria-label="At a glance">
       <li><strong>${live.length}</strong> playable projects</li>
       <li><strong>Real data</strong> NASA, USGS, Smithsonian</li>
@@ -176,12 +186,6 @@ function main() {
     <ul class="cards">
 ${cards}
     </ul>
-  </section>
-  <section id="about" aria-labelledby="about-h">
-    <h2 id="about-h">About the approach</h2>
-    <div class="prose">${marked.parse(landingMd)}</div>
-    <p><strong>Evaluation status:</strong> ${esc(site.evaluationNote)}</p>
-    <p>${esc(site.deviceNote)}</p>
   </section>
 </main>
 ${footer}`;

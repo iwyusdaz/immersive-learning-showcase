@@ -58,3 +58,17 @@ Effect on our budgets:
 
 ## Owner visual approval (G2), 2026-11-09: landing page
 Owner visual approval (G2), 2026-11-09, of the v3 landing page (PR #11 preview), approved with known open issues: CI `validate` fails on the object-detective text-mode timeout on the runner, the v2 posters are still inside the project archives, and there is no light theme. Owner words: "approve all for now". This is owner visual approval, not user testing.
+
+## Landing page follow-ups (owner request), 2026-11-09
+- **Footer contact line removed.** The owner asked for the `[Email] · [LinkedIn] · GitHub` line to be removed from the footer. GitHub stays in the header nav, and `site.config.json` still holds the placeholders for later use.
+- **"About the approach" moved into a disclosure panel** next to "Browse the projects". It's a native `<details>`/`<summary>`, so it works with the keyboard and without JavaScript.
+  - `filters.js` adds three behaviours:
+    - `/#about` (header "About" link) opens the panel;
+    - Escape closes it and returns focus to the button;
+    - a click outside closes it.
+  - The panel content is a focusable, labelled region, so its scroll area works with the keyboard.
+  - The old `#about` section styles were scoped to the panel.
+- **Verified locally:**
+  - Landing and projects specs passed 15/15.
+  - axe (wcag2a/aa plus best practice) found 0 violations, with the panel open at 1440×900 and at 320×700.
+  - There's no horizontal overflow at 320 px.

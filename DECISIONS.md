@@ -55,3 +55,6 @@ Effect on our budgets:
 - **One dark theme.** The cards use each project's accent as a button and badge background with dark text. A light theme would put the light accents on white, which fails contrast, so the light theme was dropped.
 - **Archived projects removed** (arrival-english, first-session-tutor-sim). With no project requesting the microphone, vercel.json has one Permissions-Policy rule that denies it everywhere, and build-site now fails the build if a manifest asks for it.
 - Lighthouse on the local build (serve-dist, no compression): mobile 97 / 100 / 100 / 100, desktop 100 / 100 / 100 / 100 (performance, accessibility, best practices, SEO). Raw: `evaluation/results/lighthouse-v3-landing-*.json`.
+
+## Owner visual approval (G2), 2026-11-09: landing page
+Owner visual approval (G2), 2026-11-09, of the v3 landing page (PR #11 preview), approved with known open issues: CI `validate` fails on the object-detective text-mode timeout on the runner, the v2 posters are still inside the project archives, and there is no light theme. Owner words: "approve all for now". This is owner visual approval, not user testing.

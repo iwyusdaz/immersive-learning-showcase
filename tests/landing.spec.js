@@ -19,10 +19,23 @@ test('site stylesheet and script load with correct content types', async ({ page
   expect(bg).not.toBe('rgba(0, 0, 0, 0)');
 });
 
+test('archived projects are gone from the landing page and their routes', async ({ page, request }) => {
+  await page.goto('/');
+  const html = await page.content();
+  for (const slug of ['arrival-english', 'first-session-tutor-sim']) {
+    expect(html, slug).not.toContain(slug);
+    expect((await request.get(`/play/${slug}/`)).status(), slug).toBe(404);
+  }
+  for (const path of ['/credits/', '/accessibility/', '/sitemap.xml']) {
+    const body = await (await request.get(path)).text();
+    expect(body, path).not.toMatch(/arrival-english|first-session-tutor-sim|Arrival English|Tutor Sim/i);
+  }
+});
+
 test('landing shows the header, intro and project grid', async ({ page }) => {
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText(/realistic 3d/i);
-  await expect(page.locator('.cards > li')).toHaveCount(7);
+  await expect(page.locator('.cards > li')).toHaveCount(5);
   // one h1 only
   expect(await page.locator('h1').count()).toBe(1);
 });
@@ -60,9 +73,9 @@ test('all internal links resolve and GitHub links point at iwyusdaz repos', asyn
 test('filter buttons toggle cards and announce the count', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('button', { name: 'Mini course' }).click();
-  await expect(page.locator('.cards > li:not([hidden])')).not.toHaveCount(7);
+  await expect(page.locator('.cards > li:not([hidden])')).not.toHaveCount(5);
   await page.getByRole('button', { name: 'All', exact: true }).click();
-  await expect(page.locator('.cards > li:not([hidden])')).toHaveCount(7);
+  await expect(page.locator('.cards > li:not([hidden])')).toHaveCount(5);
 });
 
 test('keyboard navigation works through filters and cards', async ({ page }) => {

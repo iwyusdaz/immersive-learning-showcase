@@ -221,9 +221,9 @@ ${a11ySections || '<p>No released projects yet.</p>'}
     for (const f of readdirSync(srcDir)) copyFileSync(join(srcDir, f), join(DIST, sub, f));
   }
 
-  // permissions note: vercel.json Permissions-Policy must match manifests
-  const needMic = entries.some((e) => e.manifest?.permissions?.includes('microphone'));
-  if (!needMic) console.warn('note: no live manifest requests the microphone yet (arrival-english will)');
+  // vercel.json denies the microphone everywhere; a project that needs it must get its own rule.
+  const needMic = entries.filter((e) => e.manifest?.permissions?.includes('microphone')).map((e) => e.app.slug);
+  if (needMic.length) throw new Error(`build-site: ${needMic.join(', ')} request the microphone but vercel.json denies it`);
   console.log('build-site: done');
 }
 

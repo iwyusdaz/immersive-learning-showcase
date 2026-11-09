@@ -4,60 +4,46 @@
       "slug": "lunar-field-expedition",
       "repo": "iwyusdaz/lunar-field-expedition",
       "status": "live",
-      "version": "3.0.0-preview.c2cec64",
-      "sha256": "a1e14749d9e02e038460fe0bffd5e13e7984e3b40c751b56ebb92157b19aa70c",
-      "previewTag": "v3-preview-c2cec64",
-      "commit": "c2cec64fe06491f1e4563767de14468fc5e0812a"
+      "version": "3.0.0-preview.a6eec09",
+      "sha256": "7febac7fafa29a0fa96a02f6d0eb309f380923228b52252f6672ac7b35da6160",
+      "previewTag": "v3-preview-a6eec09",
+      "commit": "a6eec099e46991a735c51e5d64f4d595230983c9"
     },
     {
       "slug": "object-detective",
       "repo": "iwyusdaz/object-detective",
       "status": "live",
-      "version": "3.0.0-preview.bc55d78",
-      "sha256": "4ced3f5a894fb11f5f6cbfdf2fbcc4a88c50fa93082b0c1181366a0e26b7bb4d",
-      "previewTag": "v3-preview-bc55d78",
-      "commit": "bc55d78ecb8d412a289a45c257075ffee2f00b53"
-    },
-    {
-      "slug": "field-ecologist",
-      "repo": "iwyusdaz/field-ecologist",
-      "status": "live",
-      "version": "3.0.0-preview.73941ae",
-      "sha256": "4ab7de4ce37c4ec60ce261bceeb2e76ef228018f36c0c74db539ad0bac27799f",
-      "previewTag": "v3-preview-73941ae",
-      "commit": "73941aefba4a88e1ec4d1d5557a9d1968777247b"
+      "version": "3.0.0-preview.1845ab8",
+      "sha256": "29d3f1e51e8142e170319b7a6b61175d596ec3c40a99b3de90ba1db7c96e1f0b",
+      "previewTag": "v3-preview-1845ab8",
+      "commit": "1845ab818acd13fb802730d45b722515d958dc16"
     },
     {
       "slug": "hazard-hunt",
       "repo": "iwyusdaz/hazard-hunt",
       "status": "live",
-      "version": "3.0.0-preview.cc88a02",
-      "sha256": "6750f13b2fed64496969fd1258c5cbe01cff7ac67c9ca66834f1d0dcf3a39581",
-      "previewTag": "v3-preview-cc88a02",
-      "commit": "cc88a023f1d70749e8470b3e9ea215eaab969921"
+      "version": "3.0.0-preview.05b3b4d",
+      "sha256": "4b695f70fb2c87dabe5413e73d0d8ddcc7bbeececc6b2d2bc27a3cf77b8e82df",
+      "previewTag": "v3-preview-05b3b4d",
+      "commit": "05b3b4dd57b140db4c8ffaea73e5afb5d6289ea7"
     },
     {
-      "slug": "arrival-english",
-      "repo": "iwyusdaz/arrival-english",
+      "slug": "field-ecologist",
+      "repo": "iwyusdaz/field-ecologist",
       "status": "live",
-      "version": "2.0.1",
-      "sha256": "aced4b91b5ca11bdca30f7740b3951dfbd7c2caa1d79ee9a4c253cd8aad59dc0"
+      "version": "3.0.0-preview.b4e1fcc",
+      "sha256": "6f3c075c42db7c3e04342dcf473d13fd76aeb133e9a9a55b9d341ad0e3a610b1",
+      "previewTag": "v3-preview-b4e1fcc",
+      "commit": "b4e1fcc48b190f52cb7a526f6e2053fce5d6d64f"
     },
     {
       "slug": "glacier-time-machine",
       "repo": "iwyusdaz/glacier-time-machine",
       "status": "live",
-      "version": "3.0.0-preview.26cd92e",
-      "sha256": "376c8ca81568342a84f0e5c52e095691a6860a87a4186a87566b84ea4c865cf7",
-      "previewTag": "v3-preview-26cd92e",
-      "commit": "26cd92e79847e22710233258877f3d2c12c84c72"
-    },
-    {
-      "slug": "first-session-tutor-sim",
-      "repo": "iwyusdaz/first-session-tutor-sim",
-      "status": "live",
-      "version": "2.0.0",
-      "sha256": "9b7fd52c0bd3297f84163d997a7399cb0cd1629a3f8624cc01f5f6f529abbe63"
+      "version": "3.0.0-preview.2056488",
+      "sha256": "dbabb40accc0f9a0ef7c84d65d6ebab18288e5b61d88b61306cbc97be7366f6b",
+      "previewTag": "v3-preview-2056488",
+      "commit": "20564886b3b3ce7e7c4702d484ea8aa8881274ba"
     }
   ]
 }

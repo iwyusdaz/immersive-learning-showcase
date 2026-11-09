@@ -1,8 +1,7 @@
 /**
  * Post-deploy live checks (run with BASE_URL=<production-url> npx playwright test tests/live-headers.spec.js):
  * CSP present on HTML; Cache-Control immutable on fingerprinted assets and not on HTML;
- * correct content types for .glb and .ktx2; Permissions-Policy allows microphone only on
- * /play/arrival-english/.
+ * correct content types for .glb and .ktx2; Permissions-Policy denies the microphone everywhere.
  */
 import { test, expect } from '@playwright/test';
 
@@ -18,15 +17,13 @@ test('HTML responses carry the CSP and no immutable caching', async ({ request }
   expect(headers['cache-control'] || '').not.toContain('immutable');
 });
 
-test('Permissions-Policy denies the microphone everywhere except arrival-english', async ({ request }) => {
+test('Permissions-Policy denies the microphone everywhere', async ({ request }) => {
   const landing = await request.get(`${BASE}/`);
   expect(landing.headers()['permissions-policy']).toContain('microphone=()');
-  for (const slug of ['lunar-field-expedition', 'object-detective', 'field-ecologist', 'hazard-hunt', 'glacier-time-machine', 'first-session-tutor-sim']) {
+  for (const slug of ['lunar-field-expedition', 'object-detective', 'field-ecologist', 'hazard-hunt', 'glacier-time-machine']) {
     const res = await request.get(`${BASE}/play/${slug}/`);
     if (res.status() === 200) expect(res.headers()['permissions-policy'], slug).toContain('microphone=()');
   }
-  const arrival = await request.get(`${BASE}/play/arrival-english/`);
-  if (arrival.status() === 200) expect(arrival.headers()['permissions-policy']).toContain('microphone=(self)');
 });
 
 test('fingerprinted assets are immutable; .glb and .ktx2 have correct content types', async ({ request }) => {

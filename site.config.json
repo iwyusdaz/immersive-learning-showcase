@@ -1,6 +1,6 @@
 {
   "siteTitle": "Immersive Learning Lab",
-  "tagline": "Realistic 3D where it helps learning, restraint where it doesn't. Five games and mini courses built with three.js.",
+  "tagline": "Five games and mini courses built with three.js. Realistic detail where noticing it is the learning, restraint everywhere else.",
   "canonicalUrl": "https://immersive-learning-showcase.vercel.app",
   "owner": {
     "github": "https://github.com/iwyusdaz",
@@ -16,5 +16,27 @@
   },
   "evaluationNote": "Automated functional, accessibility and performance testing plus agent-based design reviews are complete. No real learners have tested this yet.",
   "deviceNote": "Best on a desktop or laptop browser. Phones are supported with lighter graphics.",
-  "privacyNote": "This site doesn't track you. Progress is saved only in your browser."
+  "privacyNote": "This site doesn't track you. Progress is saved only in your browser.",
+  "posters": {
+    "lunar-field-expedition": {
+      "alt": "The full Moon seen from orbit against a dark starfield, the opening view of Lunar Field Expedition.",
+      "kicker": "Apollo 15 · Hadley-Apennine"
+    },
+    "object-detective": {
+      "alt": "A brass telegraph key on a wooden base, lit by a low raking lamp on the inspection table and casting a long shadow.",
+      "kicker": "Night gallery · Smithsonian scans"
+    },
+    "hazard-hunt": {
+      "alt": "A warehouse floor with yellow walkway lines, a forklift with its driver, pallets of boxes and tall racking under ceiling lights.",
+      "kicker": "Warehouse floor · Near-miss replay"
+    },
+    "field-ecologist": {
+      "alt": "A green meadow scattered with wildflowers, with a line of woodland and low hills behind it.",
+      "kicker": "100 m meadow · Quadrat sampling"
+    },
+    "glacier-time-machine": {
+      "alt": "Aerial 3D view of Muir Inlet, Alaska: a glacier between snow-capped mountains running into a long blue fjord under low cloud.",
+      "kicker": "Muir Inlet, Alaska · 1941 to today"
+    }
+  }
 }

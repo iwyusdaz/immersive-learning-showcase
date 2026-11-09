@@ -51,7 +51,7 @@ test('every released project card has Play + case-study links; coming-soon cards
       await expect(card.getByRole('link', { name: /^Play / })).toHaveCount(0);
     } else {
       await expect(card.getByRole('link', { name: /^Play / })).toHaveCount(1);
-      await expect(card.getByRole('link', { name: /Case study on GitHub/ })).toHaveCount(1);
+      await expect(card.getByRole('link', { name: /^Case study.* on GitHub$/ })).toHaveCount(1);
     }
   }
 });

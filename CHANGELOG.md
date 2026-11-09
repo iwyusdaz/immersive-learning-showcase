@@ -1,5 +1,7 @@
 # Changelog — immersive-learning-showcase
-## Unreleased (v3 preview, PR #11, not merged)
+## 3.0.0 — 2026-11-09 (v3 release)
+- All five projects pinned at 3.0.0 (sha256 verified). Their archives now carry v3 posters (`poster-3.0.0.*`).
+- Owner visual approval of the landing page (G2), 2026-11-09; not user testing.
 - Landing page revamp (owner G2 feedback §4): hero with a short at-a-glance row, a two-wide plus three-wide project grid, and cards that each carry the project's accent colour, display font, numbered kicker and a new poster.
 - New posters: headed-GPU screenshots of each project's v3 scene (overlay hidden), kept in `src/posters/` and served from `/posters/` under content-hashed names. New Open Graph image built from the same five shots.
 - arrival-english and first-session-tutor-sim removed (archived): apps.json entries, cards, `/play/<slug>/` routes, credits, sitemap, the microphone Permissions-Policy exception and their landing fonts (Bricolage Grotesque, Sora).

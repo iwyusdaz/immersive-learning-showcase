@@ -4,46 +4,36 @@
       "slug": "lunar-field-expedition",
       "repo": "iwyusdaz/lunar-field-expedition",
       "status": "live",
-      "version": "3.0.0-preview.a6eec09",
-      "sha256": "7febac7fafa29a0fa96a02f6d0eb309f380923228b52252f6672ac7b35da6160",
-      "previewTag": "v3-preview-a6eec09",
-      "commit": "a6eec099e46991a735c51e5d64f4d595230983c9"
+      "version": "3.0.0",
+      "sha256": "f1505e69ca0519d5274a4221506e0375125e5f5495f6225144da713f382c458f"
     },
     {
       "slug": "object-detective",
       "repo": "iwyusdaz/object-detective",
       "status": "live",
-      "version": "3.0.0-preview.1845ab8",
-      "sha256": "29d3f1e51e8142e170319b7a6b61175d596ec3c40a99b3de90ba1db7c96e1f0b",
-      "previewTag": "v3-preview-1845ab8",
-      "commit": "1845ab818acd13fb802730d45b722515d958dc16"
+      "version": "3.0.0",
+      "sha256": "61c3830f90316d978fcb484a13a17cd826013bec9ad3ad66dc6193e246d6cbe4"
     },
     {
       "slug": "hazard-hunt",
       "repo": "iwyusdaz/hazard-hunt",
       "status": "live",
-      "version": "3.0.0-preview.05b3b4d",
-      "sha256": "4b695f70fb2c87dabe5413e73d0d8ddcc7bbeececc6b2d2bc27a3cf77b8e82df",
-      "previewTag": "v3-preview-05b3b4d",
-      "commit": "05b3b4dd57b140db4c8ffaea73e5afb5d6289ea7"
+      "version": "3.0.0",
+      "sha256": "73390f7dcdc101c6aeaeb062483003bb42af814ebcd565120c7a50c06aa9a3cd"
     },
     {
       "slug": "field-ecologist",
       "repo": "iwyusdaz/field-ecologist",
       "status": "live",
-      "version": "3.0.0-preview.b4e1fcc",
-      "sha256": "6f3c075c42db7c3e04342dcf473d13fd76aeb133e9a9a55b9d341ad0e3a610b1",
-      "previewTag": "v3-preview-b4e1fcc",
-      "commit": "b4e1fcc48b190f52cb7a526f6e2053fce5d6d64f"
+      "version": "3.0.0",
+      "sha256": "4a7b79fc3660130a17e29ae354b073c36a4c64cdaead13afd88da7c16b905cd5"
     },
     {
       "slug": "glacier-time-machine",
       "repo": "iwyusdaz/glacier-time-machine",
       "status": "live",
-      "version": "3.0.0-preview.2056488",
-      "sha256": "dbabb40accc0f9a0ef7c84d65d6ebab18288e5b61d88b61306cbc97be7366f6b",
-      "previewTag": "v3-preview-2056488",
-      "commit": "20564886b3b3ce7e7c4702d484ea8aa8881274ba"
+      "version": "3.0.0",
+      "sha256": "79b72fc06738734e8126d0ea872e761c7b151ee206f21e918ab0467db60395bb"
     }
   ]
 }

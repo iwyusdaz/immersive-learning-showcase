@@ -20,7 +20,7 @@ Last updated: 2026-11-09
 | apps.json pins, v2 (seven projects then) | superseded — 2026-10-29: lunar 2.0.0; hazard-hunt, object-detective, arrival-english 2.0.1; field-ecologist, glacier, tutor-sim 1.0.0 (their v2 releases follow). Verified on the production alias, not just in `apps.json` (see DECISIONS.md "Deployment log — v2 pins") |
 | Rollback test | done 2026-10-28 (DECISIONS.md). It left production auto-assignment off until a `vercel promote` on 2026-10-29 |
 | v3 preview (PR #11, draft, never merged) | 2026-11-09: closed, superseded by the v3.0.0 release PR |
-| Known open issues at v3.0.0 | CI `validate` fails on the GitHub runner: object-detective's "Use text mode" button doesn't become clickable within 90 s under software WebGL (cause fixed in object-detective `main` 2026-11-10, T-33; clears once v3.0.1 is pinned). No light theme (the project accents fail contrast on white). |
+| Known open issues at v3.0.0 | CI `validate` fails on the GitHub runner: object-detective's "Use text mode" button doesn't become clickable within 90 s under software WebGL **Closed 2026-11-10:** cause fixed in v3.0.1 (T-33); PR #14 pinned all five at 3.0.1 and `validate` passed, merged without an override. No light theme (the project accents fail contrast on white). |
 | Release-check PR flow tested end to end | done for the v1 and v2 pins (PRs #3–#7) |
 
 ## Follow-ups noted in DECISIONS.md

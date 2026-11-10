@@ -4,36 +4,36 @@
       "slug": "lunar-field-expedition",
       "repo": "iwyusdaz/lunar-field-expedition",
       "status": "live",
-      "version": "3.0.0",
-      "sha256": "f1505e69ca0519d5274a4221506e0375125e5f5495f6225144da713f382c458f"
+      "version": "3.0.1",
+      "sha256": "30b060c7e605af28049827cd9592ef96b09ff1ac81f4a638fcbaff1b8d3d960c"
     },
     {
       "slug": "object-detective",
       "repo": "iwyusdaz/object-detective",
       "status": "live",
-      "version": "3.0.0",
-      "sha256": "61c3830f90316d978fcb484a13a17cd826013bec9ad3ad66dc6193e246d6cbe4"
+      "version": "3.0.1",
+      "sha256": "9bb711a3658d22c7853fcfce7286fc582f733d9ea7e4bf771043600f98c697e5"
     },
     {
       "slug": "hazard-hunt",
       "repo": "iwyusdaz/hazard-hunt",
       "status": "live",
-      "version": "3.0.0",
-      "sha256": "73390f7dcdc101c6aeaeb062483003bb42af814ebcd565120c7a50c06aa9a3cd"
+      "version": "3.0.1",
+      "sha256": "327bdc8187bd583b0e69ccaff5a7af1f2996a4b0297f2b52e221078611914c26"
     },
     {
       "slug": "field-ecologist",
       "repo": "iwyusdaz/field-ecologist",
       "status": "live",
-      "version": "3.0.0",
-      "sha256": "4a7b79fc3660130a17e29ae354b073c36a4c64cdaead13afd88da7c16b905cd5"
+      "version": "3.0.1",
+      "sha256": "341dd32bb620de99b5b47c11b56a080bf297c9ca0057f2ccec54a27eb5c069a3"
     },
     {
       "slug": "glacier-time-machine",
       "repo": "iwyusdaz/glacier-time-machine",
       "status": "live",
-      "version": "3.0.0",
-      "sha256": "79b72fc06738734e8126d0ea872e761c7b151ee206f21e918ab0467db60395bb"
+      "version": "3.0.1",
+      "sha256": "bd7829f3f1c4f5655b96715d5db8ce324584c57316a1d8d56d7a60c8ed8317df"
     }
   ]
 }
